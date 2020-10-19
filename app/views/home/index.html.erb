@@ -1,0 +1,43 @@
+<div class="container">
+	<% @post.each do |post| %>
+	<div class="post">
+		<h1><%= post.title %></h1>
+		<div class="edit">
+			<a href="/home/update_form/<%= post.id %>">수정</a>
+			<a href="/home/delete/<%= post.id %>">삭제</a>
+		</div>
+			<div style="text-align:right">
+				<%= post.author %>
+			</div>
+		<hr>
+		<%= post.content %>
+		<hr>
+		<% post.replies.each do |reply| %>
+		<div class="reply">
+			<%= reply.content %>
+		</div>
+		<% end %>
+		<form action="/reply/create/<%= post.id %>" method="post">
+			<textarea name="content" class="form-control"></textarea>
+			<input type="submit" class="btn btn-primary" value="작성">
+		</form>
+	</div>
+	<% end %>
+	<a href="/home/create_form">글쓰기</a>
+</div>
+
+<style>
+	
+	.post, reply{
+		border	: 1px solid;
+		margin	: 30px auto;
+		max-width : 1000px;
+		border-radius:5px;
+		padding	: 40px;
+	}
+	
+	.edit{
+		float : left;	
+	}
+	
+</style>
